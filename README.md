@@ -8,6 +8,8 @@ B. Transformation queries and materialized views
 
 #1 Transformation query to extract id, first name and last name of users:
 
+![image](https://user-images.githubusercontent.com/25885092/227249105-d4679452-93d4-4761-abe8-46ff5b45247c.png)
+
 CREATE STREAM users_stream (id INT, firstName VARCHAR, lastName VARCHAR)
     WITH (kafka_topic='users', value_format='JSON');
 
@@ -20,6 +22,8 @@ CREATE STREAM users_name_stream AS
 	
 #2 Transformation query to filter users based on gender to only for "male":
 
+![image](https://user-images.githubusercontent.com/25885092/227249228-a43f61eb-e83d-419f-a12a-8c653f019fd0.png)
+
 CREATE STREAM users_age_stream AS 
     SELECT * 
     FROM users_stream 
@@ -29,6 +33,8 @@ CREATE STREAM users_age_stream AS
 --> This query creates another stream named users_age_stream which only selects users whose age is greater than 30.	
 
 #3 Materialized view query that extracts the id column and adds a new column called generation based on the age of each person:
+
+![image](https://user-images.githubusercontent.com/25885092/227249330-74405c66-004d-4ac9-a223-7813619c5411.png)
 
 CREATE MATERIALIZED VIEW people_with_generation AS
 SELECT id, 
